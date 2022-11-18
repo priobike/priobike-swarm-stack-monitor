@@ -1,6 +1,9 @@
 # Swarm Stack Monitor
 
-This a tiny tool to monitor the status of a docker swarm stack. It will output the status as prometheus metrics into an output file. This file can be served by a webserver and scraped by prometheus.
+This a tiny tool to monitor the status of a docker swarm stack. It will output the status as prometheus metrics into an output file. This file can be served by a webserver and scraped by prometheus. Here is an example how the metrics can be displayed in Grafana:
+
+<img width="1560" alt="Screenshot 2022-11-18 at 13 41 37" src="https://user-images.githubusercontent.com/27271818/202707363-f9ce0bdb-2b5c-4160-800f-7b303c157d26.png">
+
 
 ## Quickstart
 
