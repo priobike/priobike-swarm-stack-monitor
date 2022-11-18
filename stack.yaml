@@ -1,0 +1,50 @@
+# An example docker-compose file that can be used to run the stack.
+# Run with: docker stack deploy -c stack.yaml stack
+
+version: '3.7'
+
+services:
+  # Some random service that exits after 10 seconds.
+  # This is used to demonstrate the stack.
+  dummy:
+    image: alpine
+    command: /bin/sh -c "sleep 10 && echo 'I am done'"
+    deploy:
+      mode: replicated
+      replicas: 4
+
+  # The stack monitor.
+  # Run `docker build -t stack-monitor .` to build the image.
+  stack-monitor:
+    image: stack-monitor
+    environment:
+      - STACK=stack
+      - OUTPUT=/usr/share/nginx/html/metrics.txt
+    volumes:
+      # Mount a volume under the shared nginx dir to serve static files
+      - stack_monitor_staticfiles:/usr/share/nginx/html/
+      # Mount the Docker socket to be able to query the Docker API
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+
+  # The nginx proxy that serves the stack monitor metrics.
+  stack-monitor-nginx:
+    image: nginx:alpine
+    volumes:
+      # Mount a volume under the shared nginx dir to serve static files
+      - stack_monitor_staticfiles:/usr/share/nginx/html/
+    ports:
+      - 80:80
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+
+volumes:
+  stack_monitor_staticfiles:
+    name: stack_monitor_staticfiles
