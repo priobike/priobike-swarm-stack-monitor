@@ -1,7 +1,7 @@
 # An example docker-compose file that can be used to run the stack.
 # Run with: docker stack deploy -c stack.yaml stack
 
-version: '3.7'
+version: '3.9'
 
 services:
   # Some random service that exits after 10 seconds.
@@ -12,6 +12,8 @@ services:
     deploy:
       mode: replicated
       replicas: 4
+      placement:
+        max_replicas_per_node: 1
 
   # The stack monitor.
   # Run `docker build -t stack-monitor .` to build the image.

@@ -53,4 +53,4 @@ To integrate this tool with your stack, please check the `stack.yaml` file.
 
 ## License
 
-MIT
+Apache License 2.0

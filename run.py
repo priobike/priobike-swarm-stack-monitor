@@ -74,7 +74,13 @@ def run():
         raise Exception(f"Error running command: {services_cmd} - {services.stderr}")
     services_data = [json.loads(line) for line in services_output.splitlines()]
     for service in services_data:
-        replicas = service['replicas'].split('/')
+        replicas = service['replicas']
+        # Remove the part after x/y, like (max 1 per node) or (global).
+        # We only want the first part since that is the number of replicas.
+        if ' ' in replicas:
+            replicas = replicas.split(' ')[0]
+        # Split the x/y into x and y
+        replicas = replicas.split('/')
         name = service['name']
         n_replicas = replicas[0]
         n_desired_replicas = replicas[1]
