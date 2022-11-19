@@ -1,0 +1,9 @@
+global:
+  scrape_interval: '5s'
+  evaluation_interval: '5s'
+
+scrape_configs:
+  - job_name: 'stack-monitor-nginx'
+    metrics_path: /metrics.txt
+    static_configs:
+      - targets: ['stack-monitor-nginx:80']

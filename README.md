@@ -19,7 +19,7 @@ Run the example stack:
 docker stack deploy -c stack.yaml stack
 ```
 
-Visit the prometheus metrics endpoint:
+Now you can visit the Grafana dashboard at http://localhost:3000. The default username and password is `admin` and `secret`. Or, you can visit the prometheus metrics endpoint directly:
 
 ```
 curl http://localhost/metrics.txt
