@@ -86,7 +86,7 @@ def run():
         n_desired_replicas = replicas[1]
         is_down = int(n_replicas) == 0
         is_partially_running = int(n_replicas) < int(n_desired_replicas) and int(n_replicas) > 0
-        is_up = int(n_replicas) == int(n_desired_replicas)
+        is_up = int(n_replicas) == int(n_desired_replicas) and int(n_replicas) > 0
         prometheus_metrics.append(f'service_replicas{{service="{name}"}} {n_replicas}')
         prometheus_metrics.append(f'service_desired_replicas{{service="{name}"}} {n_desired_replicas}')
         prometheus_metrics.append(f'service_is_partially_running{{service="{name}"}} {int(is_partially_running)}')
