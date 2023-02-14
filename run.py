@@ -93,6 +93,9 @@ def run():
         prometheus_metrics.append(f'service_is_down{{service="{name}"}} {int(is_down)}')
         prometheus_metrics.append(f'service_is_up{{service="{name}"}} {int(is_up)}')
 
+    now = time.time()
+    prometheus_metrics.append(f'stack_metrics_updated_at {int(now)}')
+    
     logging.info(f'Successfully generated prometheus metrics.')
 
     # Write the metrics to the output file.
